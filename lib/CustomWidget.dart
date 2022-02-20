@@ -1,4 +1,4 @@
-import 'package:assignment_10/ModelClass.dart';
+import 'Model.dart';
 import 'package:flutter/material.dart';
 
 class customWidget extends StatefulWidget {
