@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class PostInfo {
   var user;
   var userImage;
@@ -5,6 +7,7 @@ class PostInfo {
   var postMessage;
   Map<String, String> comment = {};
   bool liked = false;
+  TextEditingController _controller  = TextEditingController();
 
   PostInfo(var user, var userImage, var postImage, var postMessage, Map<String, String> comment) {
     this.user = user;
@@ -16,5 +19,9 @@ class PostInfo {
 
   pressLike() {
     liked = !liked;
+  }
+
+  getController() {
+    return _controller;
   }
 }

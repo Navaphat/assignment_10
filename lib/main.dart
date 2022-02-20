@@ -36,8 +36,6 @@ class _MySiteState extends State<MySite> {
 
   String userName = "Xawel's";
 
-  TextEditingController _controller  = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,6 +133,9 @@ class _MySiteState extends State<MySite> {
   }
 
   Widget buildCommentField({int? position}) {
+
+    var controller = postInfo[position!].getController();
+
     return Flexible(
       child: Container(
         height: 30.0,
@@ -142,11 +143,11 @@ class _MySiteState extends State<MySite> {
           padding: const EdgeInsets.only(right: 20.0),
           child: TextField(
             decoration: InputDecoration(hintText: 'Add a Comment',),
-            controller: _controller,
+            controller: controller,
             onSubmitted: (String comment) {
               setState(() {
                 postInfo[position!].comment.addAll({userName : comment});
-                _controller.clear();
+                controller.clear();
               });
             },
           ),
