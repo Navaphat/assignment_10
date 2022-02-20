@@ -29,12 +29,12 @@ class MySite extends StatefulWidget {
 class _MySiteState extends State<MySite> {
 
   final List<PostInfo> postInfo = [
-    PostInfo('Barbatos', 'assets/images/Venti_Pro.jpg', 'assets/images/Venti.jpg', 'Anemo Archon', {'Baal': 'Come fight me.', 'Morax' : 'you Idiot.'}),
-    PostInfo('Morax', 'assets/images/Zhongli_Pro.jpg', 'assets/images/Zhongli.png', 'Geo Archon', {'Venti' : 'Ehe.', 'Baal' : 'Long time no see.'}),
-    PostInfo('Baal', 'assets/images/Raiden_Pro.jpg', 'assets/images/Raiden.png', 'Electro Archon', {'Venti' : 'Ehe', 'Morax' : "It's been a while"}),
+    PostInfo('Barbatos', 'assets/images/Venti_Pro.jpg', 'assets/images/Venti.jpg', 'Anemo Archon', ['Baal', 'Morax'], ['Come fight me.', 'You idiot.']),
+    PostInfo('Morax', 'assets/images/Zhongli_Pro.jpg', 'assets/images/Zhongli.png', 'Geo Archon', ['Venti','Baal'], ['Ehe.', 'Long  time no see.']),
+    PostInfo('Baal', 'assets/images/Raiden_Pro.jpg', 'assets/images/Raiden.png', 'Electro Archon', ['Venti', 'Morax'], ['Ehe.', "It's been a while."]),
     ];
 
-  String userName = "Xawel's";
+  String _userName = "Xawel's";
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +56,6 @@ class _MySiteState extends State<MySite> {
 
   Widget buildPost({int? position}) {
 
-    var _commentUserName = postInfo[position!].comment.keys.toList();
-    var _commentUser = postInfo[position].comment.values.toList();
-
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0, left: 20.0, right: 20.0),
       child: Container(
@@ -75,7 +72,7 @@ class _MySiteState extends State<MySite> {
                       children: [
                         CircleAvatar(
                           radius: 28.0,
-                          backgroundImage: AssetImage(postInfo[position].userImage),
+                          backgroundImage: AssetImage(postInfo[position!].userImage),
                         ),
                         SizedBox(width: 8.0,),
                         Text(postInfo[position].user, style: TextStyle(fontSize: 25.0),),
@@ -95,12 +92,12 @@ class _MySiteState extends State<MySite> {
             Image.asset(postInfo[position].postImage),
             Text(postInfo[position].postMessage, style: TextStyle(fontSize: 50.0),),
 
-            for(int i = 0; i < _commentUserName.length; i++) Padding(
+            for(int i = 0; i < postInfo[position].getCommentUserLength(); i++) Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: Row(
                 children: [
-                  Text(_commentUserName[i] + " : " ,style: TextStyle(fontSize: 25.0, color: Colors.blue),),
-                  Text(_commentUser[i], style: TextStyle(fontSize: 25.0),),
+                  Text("${postInfo[position].commentUserName[i].characters} : " ,style: TextStyle(fontSize: 25.0, color: Colors.blue),),
+                  Text('${postInfo[position].commentMessage[i].characters}', style: TextStyle(fontSize: 25.0),),
                 ],
               ),
             ),
@@ -146,7 +143,8 @@ class _MySiteState extends State<MySite> {
             controller: controller,
             onSubmitted: (String comment) {
               setState(() {
-                postInfo[position!].comment.addAll({userName : comment});
+                postInfo[position!].commentUserName.add(_userName);
+                postInfo[position].commentMessage.add(comment);
                 controller.clear();
               });
             },

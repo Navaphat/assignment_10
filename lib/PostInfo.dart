@@ -5,16 +5,18 @@ class PostInfo {
   var userImage;
   var postImage;
   var postMessage;
-  Map<String, String> comment = {};
   bool liked = false;
   TextEditingController _controller  = TextEditingController();
+  List<String> commentUserName = [];
+  List<String> commentMessage = [];
 
-  PostInfo(var user, var userImage, var postImage, var postMessage, Map<String, String> comment) {
+  PostInfo(var user, var userImage, var postImage, var postMessage, List<String> commentUserName, List<String> commentMessage) {
     this.user = user;
     this.userImage = userImage;
     this.postImage = postImage;
     this.postMessage = postMessage;
-    this.comment = comment;
+    this.commentUserName = commentUserName;
+    this.commentMessage = commentMessage;
   }
 
   pressLike() {
@@ -23,5 +25,9 @@ class PostInfo {
 
   getController() {
     return _controller;
+  }
+
+  getCommentUserLength() {
+    return commentUserName.length;
   }
 }
