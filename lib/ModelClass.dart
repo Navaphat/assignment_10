@@ -6,9 +6,11 @@ class PostInfo {
   var postImage;
   var postMessage;
   bool liked = false;
-  TextEditingController _controller  = TextEditingController();
   List<String> commentUserName = [];
   List<String> commentMessage = [];
+
+  TextEditingController _controller  = TextEditingController();
+
 
   PostInfo(var user, var userImage, var postImage, var postMessage, List<String> commentUserName, List<String> commentMessage) {
     this.user = user;
