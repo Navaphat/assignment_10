@@ -10,9 +10,9 @@ class customWidget extends StatefulWidget {
 class _customWidgetState extends State<customWidget> {
 
   final List<PostInfo> postInfo = [
-    PostInfo('Barbatos', 'assets/images/Venti_Pro.jpg', 'assets/images/Venti.jpg', 'Anemo Archon', ['Baal', 'Morax'], ['Come fight me.', 'You idiot.']),
-    PostInfo('Morax', 'assets/images/Zhongli_Pro.jpg', 'assets/images/Zhongli.png', 'Geo Archon', ['Venti','Baal'], ['Ehe.', 'Long  time no see.']),
-    PostInfo('Baal', 'assets/images/Raiden_Pro.jpg', 'assets/images/Raiden.png', 'Electro Archon', ['Venti', 'Morax'], ['Ehe.', "It's been a while."]),
+    PostInfo('Barbatos', 'assets/images/Venti_Pro.jpg', 'assets/images/Venti.jpg', "    A bard that seems to have arrived on some unknown wind — sometimes sings songs as old as the hills, and other times sings poems fresh and new. Likes apples and lively places but is not a fan of cheese or anything sticky. When using his Anemo power to control the wind, it often appears as feathers, as he's fond of that which appears light and breezy.", ['Baal', 'Morax'], ['Come fight me.', 'You idiot.']),
+    PostInfo('Morax', 'assets/images/Zhongli_Pro.jpg', 'assets/images/Zhongli.png', "   Wangsheng Funeral Parlor's mysterious consultant. Handsome, elegant, and surpassingly learned.Though no one knows where Zhongli is from, he is a master of courtesy and rules. From his seat at Wangsheng Funeral Parlor, he performs all manner of rituals.", ['Barbatos','Baal'], ['Ehe.', 'Long  time no see.']),
+    PostInfo('Baal', 'assets/images/Raiden_Pro.jpg', 'assets/images/Raiden.png', '    The Raiden Shogun is the awesome and terrible power of thunder incarnate, the exalted ruler of the Inazuma Shogunate. With the might of lightning at her disposal, she commits herself to the solitary pursuit of eternity.', ['Barbatos', 'Morax'], ['Ehe.', "It's been a while."]),
   ];
 
   String _userName = "Xawel's";
@@ -22,14 +22,23 @@ class _customWidgetState extends State<customWidget> {
     return Scaffold(
       //resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('Archon Information'),
+        title: Text('Genshin Impact'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 20.0,),
-            for(int i = 0; i< postInfo.length; i++) buildPost(position: i),
-          ],
+      body: Container(
+        constraints: BoxConstraints.expand(),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/Genshin_Impact_Background.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 20.0,),
+              for(int i = 0; i< postInfo.length; i++) buildPost(position: i),
+            ],
+          ),
         ),
       ),
     );
@@ -40,7 +49,18 @@ class _customWidgetState extends State<customWidget> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0, left: 20.0, right: 20.0),
       child: Container(
-        color: Colors.red,
+        //color: Colors.red,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(4.0),
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Colors.black,
+          //     offset: const Offset(2.0, 2.0),
+          //     blurRadius: 5.0,
+          //   ),
+          // ],
+        ),
         child: Column(
           children: [
             Padding(
@@ -71,14 +91,21 @@ class _customWidgetState extends State<customWidget> {
             ),
 
             Image.asset(postInfo[position].postImage),
-            Text(postInfo[position].postMessage, style: TextStyle(fontSize: 50.0),),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                children: [
+                  Flexible(child: Text(postInfo[position].postMessage, style: TextStyle(fontSize: 16.0), textAlign: TextAlign.justify,)),
+                ],
+              ),
+            ),
 
             for(int i = 0; i < postInfo[position].getCommentUserLength(); i++) Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: Row(
                 children: [
-                  Text("${postInfo[position].commentUserName[i].characters} : " ,style: TextStyle(fontSize: 25.0, color: Colors.blue),),
-                  Text('${postInfo[position].commentMessage[i].characters}', style: TextStyle(fontSize: 25.0),),
+                  Text("${postInfo[position].commentUserName[i].characters} : " ,style: TextStyle(fontSize: 20.0, color: Colors.blue),),
+                  Text('${postInfo[position].commentMessage[i].characters}', style: TextStyle(fontSize: 20.0),),
                 ],
               ),
             ),
@@ -105,7 +132,7 @@ class _customWidgetState extends State<customWidget> {
             postInfo[position!].pressLike();
           });
         },
-        icon: Icon((postInfo[position!].liked) ? Icons.thumb_up : Icons.thumb_up_outlined, size: 30.0,),
+        icon: Icon((postInfo[position!].liked) ? Icons.thumb_up : Icons.thumb_up_outlined, size: 30.0, ),
       ),
     );
   }
@@ -120,7 +147,7 @@ class _customWidgetState extends State<customWidget> {
         child: Padding(
           padding: const EdgeInsets.only(right: 20.0),
           child: TextField(
-            decoration: InputDecoration(hintText: 'Add a Comment',),
+            decoration: InputDecoration(hintText: 'Add a Comment'),
             controller: controller,
             onSubmitted: (String comment) {
               setState(() {
