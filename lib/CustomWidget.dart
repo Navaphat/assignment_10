@@ -46,6 +46,8 @@ class _customWidgetState extends State<customWidget> {
 
   Widget buildPost({int? position}) {
 
+    var feed = postInfo[position!];
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0, left: 20.0, right: 20.0),
       child: Container(
@@ -73,10 +75,10 @@ class _customWidgetState extends State<customWidget> {
                       children: [
                         CircleAvatar(
                           radius: 28.0,
-                          backgroundImage: AssetImage(postInfo[position!].userImage),
+                          backgroundImage: AssetImage(feed.getUserImage()),
                         ),
                         SizedBox(width: 8.0,),
-                        Text(postInfo[position].user, style: TextStyle(fontSize: 25.0),),
+                        Text(feed.getUser(), style: TextStyle(fontSize: 25.0),),
                       ],
                     ),
 
@@ -90,22 +92,22 @@ class _customWidgetState extends State<customWidget> {
               ),
             ),
 
-            Image.asset(postInfo[position].postImage),
+            Image.asset(feed.getPostImage()),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Row(
                 children: [
-                  Flexible(child: Text(postInfo[position].postMessage, style: TextStyle(fontSize: 16.0), textAlign: TextAlign.justify,)),
+                  Flexible(child: Text(feed.getPostMessage(), style: TextStyle(fontSize: 16.0), textAlign: TextAlign.justify,)),
                 ],
               ),
             ),
 
-            for(int i = 0; i < postInfo[position].getCommentUserLength(); i++) Padding(
+            for(int i = 0; i < feed.getCommentUserLength(); i++) Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: Row(
                 children: [
-                  Text("${postInfo[position].commentUserName[i].characters} : " ,style: TextStyle(fontSize: 20.0, color: Colors.blue),),
-                  Text('${postInfo[position].commentMessage[i].characters}', style: TextStyle(fontSize: 20.0),),
+                  Text("${feed.getCommentUserName(i: i)} : " ,style: TextStyle(fontSize: 20.0, color: Colors.blue),),
+                  Text('${feed.getCommentMessage(i: i)}', style: TextStyle(fontSize: 20.0),),
                 ],
               ),
             ),
@@ -124,22 +126,25 @@ class _customWidgetState extends State<customWidget> {
 
   Widget buildButton({int? position}) {
 
+    var feed = postInfo[position!];
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
       child: IconButton(
         onPressed: () {
           setState(() {
-            postInfo[position!].pressLike();
+            feed.pressLike();
           });
         },
-        icon: Icon((postInfo[position!].liked) ? Icons.thumb_up : Icons.thumb_up_outlined, size: 30.0, ),
+        icon: Icon((feed.getLiked()) ? Icons.thumb_up : Icons.thumb_up_outlined, size: 30.0, ),
       ),
     );
   }
 
   Widget buildCommentField({int? position}) {
 
-    var controller = postInfo[position!].getController();
+    var feed = postInfo[position!];
+    var controller = feed.getController();
 
     return Flexible(
       child: Container(
@@ -151,8 +156,8 @@ class _customWidgetState extends State<customWidget> {
             controller: controller,
             onSubmitted: (String comment) {
               setState(() {
-                postInfo[position].commentUserName.add(_userName);
-                postInfo[position].commentMessage.add(comment);
+                feed.addCommentUserName(userName: _userName);
+                feed.addCommentMessage(message: comment);
                 controller.clear();
               });
             },
