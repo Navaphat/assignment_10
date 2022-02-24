@@ -38,7 +38,7 @@ class _customWidgetState extends State<customWidget> {
               itemBuilder: (BuildContext Context, int index) {
                 return Column(
                   children: [
-                    SizedBox(height: 20.0,),
+                    SizedBox(height: 10.0,),
                     Container(
                         child: buildPost(position: index)
                     ),
@@ -56,7 +56,7 @@ class _customWidgetState extends State<customWidget> {
     var post = _postInfo[position!];
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0, left: 20.0, right: 20.0),
+      padding: const EdgeInsets.only(bottom: 10.0, left: 20.0, right: 20.0),
       child: Container(
         //color: Colors.red,
         decoration: BoxDecoration(
@@ -66,7 +66,7 @@ class _customWidgetState extends State<customWidget> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 20.0, left: 20.0, bottom: 8.0, right: 20.0),
+              padding: const EdgeInsets.only(top: 10.0, left: 20.0, bottom: 8.0, right: 20.0),
               child: Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
