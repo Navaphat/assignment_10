@@ -1,13 +1,13 @@
 import 'Model.dart';
 import 'package:flutter/material.dart';
 
-class customWidget extends StatefulWidget {
+class customWidget2 extends StatefulWidget {
 
   @override
-  State<customWidget> createState() => _customWidgetState();
+  State<customWidget2> createState() => _customWidget2State();
 }
 
-class _customWidgetState extends State<customWidget> {
+class _customWidget2State extends State<customWidget2> {
 
   final List<PostInfo> _postInfo = [
     PostInfo('Barbatos', 'assets/images/Venti_Pro.jpg', 'assets/images/Venti.jpg', "    A bard that seems to have arrived on some unknown wind — sometimes sings songs as old as the hills, and other times sings poems fresh and new. Likes apples and lively places but is not a fan of cheese or anything sticky. When using his Anemo power to control the wind, it often appears as feathers, as he's fond of that which appears light and breezy.", ['Baal', 'Morax'], ['Come fight me.', 'You idiot.']),
@@ -32,23 +32,21 @@ class _customWidgetState extends State<customWidget> {
             fit: BoxFit.cover,
           ),
         ),
-        child: Flexible(
-          child: ListView.builder(
-              itemCount: _postInfo.length,
-              itemBuilder: (BuildContext Context, int index) {
-                return Column(
+
+        child: ListView.builder(
+            itemCount: _postInfo.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                child: Column(
                   children: [
-                    SizedBox(height: 20.0,),
-                    Container(
-                        child: buildPost(position: index)
-                    ),
+                    buildPost(position: index),
                   ],
-                );
-              }
-          ),
+                ),
+              );
+            },
         ),
-        ),
-      );
+      ),
+    );
   }
 
   Widget buildPost({int? position}) {
