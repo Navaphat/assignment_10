@@ -33,12 +33,12 @@ class _customWidgetState extends State<customWidget> {
           ),
         ),
         child: ListView.builder(
-            padding: const EdgeInsets.only(right: 20.0, left: 20.0, bottom: 20.0),
+            padding: const EdgeInsets.only(top: 10.0, right: 20.0, left: 20.0, bottom: 20.0),
             itemCount: _postInfo.length,
             itemBuilder: (BuildContext Context, int index) {
               return Column(
                 children: [
-                  SizedBox(height: 20.0,),
+                  SizedBox(height: 10.0,),
                   Container(
                       child: buildPost(position: index)
                   ),
