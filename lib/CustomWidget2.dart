@@ -153,7 +153,7 @@ class _customWidget2State extends State<customWidget2> {
             onSubmitted: (String comment) {
               setState(() {
                 post.addCommentUserName(userName: _userName);
-                post.addCommentMessage(message: comment);
+                post.addComment(comment: comment);
                 controller.clear();
               });
             },

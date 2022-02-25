@@ -164,7 +164,7 @@ class _customWidgetState extends State<customWidget> {
             onSubmitted: (String comment) {
               setState(() {
                 post.addCommentUserName(userName: _userName);
-                post.addCommentMessage(message: comment);
+                post.addComment(comment: comment);
                 controller.clear();
               });
             },
