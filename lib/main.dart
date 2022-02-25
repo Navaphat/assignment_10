@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         //scaffoldBackgroundColor: ,
         primarySwatch: Colors.blue,
       ),
-      home: customWidget2(),
+      home: customWidget(),
     );
   }
 }
