@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PostInfo {
+class model {
   var _user;
   var _userImage;
   var _postImage;
@@ -12,7 +12,7 @@ class PostInfo {
   TextEditingController _controller  = TextEditingController();
 
 
-  PostInfo(var user, var userImage, var postImage, var postMessage, List<String> commentUserName, List<String> commentMessage) {
+  model(var user, var userImage, var postImage, var postMessage, List<String> commentUserName, List<String> commentMessage) {
     this._user = user;
     this._userImage = userImage;
     this._postImage = postImage;
