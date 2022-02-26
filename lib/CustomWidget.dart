@@ -39,7 +39,7 @@ class _customWidgetState extends State<customWidget> {
             return Column(
               children: [
                 SizedBox(height: 10.0,),
-                buildPost(position: index),
+                buildPost(post: _postInfo[index]),
               ],
             );
           }
@@ -48,9 +48,7 @@ class _customWidgetState extends State<customWidget> {
     );
   }
 
-  Widget buildPost({int? position}) {
-
-    var post = _postInfo[position!];
+  Widget buildPost({var post}) {
 
     return Container(
       decoration: BoxDecoration(
@@ -101,12 +99,12 @@ class _customWidgetState extends State<customWidget> {
             ),
           ),
 
-          viewComment(position: position),
+          viewComment(post: post),
 
           Row(
             children: [
-              buildButton(position: position),
-              buildCommentField(position: position),
+              buildButton(post: post),
+              buildCommentField(post: post),
             ],
           ),
         ],
@@ -114,9 +112,7 @@ class _customWidgetState extends State<customWidget> {
     );
   }
 
-  Widget viewComment({int? position}) {
-
-    var post = _postInfo[position!];
+  Widget viewComment({var post}) {
 
     return ListView.builder(
       shrinkWrap: true,
@@ -136,9 +132,7 @@ class _customWidgetState extends State<customWidget> {
     );
   }
 
-  Widget buildButton({int? position}) {
-
-    var post = _postInfo[position!];
+  Widget buildButton({var post}) {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
@@ -153,9 +147,8 @@ class _customWidgetState extends State<customWidget> {
     );
   }
 
-  Widget buildCommentField({int? position}) {
+  Widget buildCommentField({var post}) {
 
-    var post = _postInfo[position!];
     var controller = post.getController();
 
     return Flexible(
