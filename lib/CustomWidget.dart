@@ -103,7 +103,7 @@ class _customWidgetState extends State<customWidget> {
 
           Row(
             children: [
-              buildButton(post: post),
+              buildLikeButton(post: post),
               buildCommentField(post: post),
             ],
           ),
@@ -132,7 +132,7 @@ class _customWidgetState extends State<customWidget> {
     );
   }
 
-  Widget buildButton({var post}) {
+  Widget buildLikeButton({var post}) {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
