@@ -132,7 +132,7 @@ class _customWidget2State extends State<customWidget2> {
             post.pressLike();
           });
         },
-        icon: Icon((post.getLiked()) ? Icons.thumb_up : Icons.thumb_up_outlined, size: 30.0, ),
+        icon: Icon((post.getLiked()) ? Icons.thumb_up : Icons.thumb_up_outlined, size: 30.0,),
       ),
     );
   }
