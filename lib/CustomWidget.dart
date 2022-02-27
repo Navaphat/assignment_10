@@ -39,7 +39,7 @@ class _customWidgetState extends State<customWidget> {
             return Column(
               children: [
                 SizedBox(height: 10.0,),
-                buildPost(post: _postInfo[index]),
+                buildPost(index: index),
               ],
             );
           }
@@ -48,7 +48,9 @@ class _customWidgetState extends State<customWidget> {
     );
   }
 
-  Widget buildPost({var post}) {
+  Widget buildPost({int? index}) {
+
+    var post = _postInfo[index!];
 
     return Container(
       decoration: BoxDecoration(
@@ -99,12 +101,12 @@ class _customWidgetState extends State<customWidget> {
             ),
           ),
 
-          viewComment(post: post),
+          viewComment(index: index),
 
           Row(
             children: [
-              buildLikeButton(post: post),
-              buildCommentField(post: post),
+              buildLikeButton(index: index),
+              buildCommentField(index: index),
             ],
           ),
         ],
@@ -112,7 +114,9 @@ class _customWidgetState extends State<customWidget> {
     );
   }
 
-  Widget viewComment({var post}) {
+  Widget viewComment({int? index}) {
+
+    var post = _postInfo[index!];
 
     return ListView.builder(
       shrinkWrap: true,
@@ -132,7 +136,9 @@ class _customWidgetState extends State<customWidget> {
     );
   }
 
-  Widget buildLikeButton({var post}) {
+  Widget buildLikeButton({int? index}) {
+
+    var post = _postInfo[index!];
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
@@ -147,8 +153,8 @@ class _customWidgetState extends State<customWidget> {
     );
   }
 
-  Widget buildCommentField({var post}) {
-
+  Widget buildCommentField({int? index}) {
+    var post = _postInfo[index!];
     var controller = post.getController();
 
     return Flexible(
