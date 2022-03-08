@@ -98,12 +98,12 @@ class _customWidget2State extends State<customWidget2> {
               ),
             ),
 
-            for(int i = 0; i < post.getCommentUserLength(); i++) Padding(
+            for(int i = 0; i < post.getCommentLength(); i++) Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: Row(
                 children: [
                   Text("${post.getCommentUserName(i: i)} : " ,style: TextStyle(fontSize: 20.0, color: Colors.blue),),
-                  Text('${post.getCommentMessage(i: i)}', style: TextStyle(fontSize: 20.0),),
+                  Text('${post.getComment(i: i)}', style: TextStyle(fontSize: 20.0),),
                 ],
               ),
             ),

@@ -7,14 +7,14 @@ class customWidget extends StatefulWidget {
   State<customWidget> createState() => _customWidgetState();
 }
 
-class _customWidgetState extends State<customWidget> {
+final List<model> _postInfo = [
+  model('Hu Tao', 'assets/images/Hutao_Pro.jpg', 'assets/images/HuTao.jpg', "   Hu Tao is the 77th Director of the Wangsheng Funeral Parlor, a person vital to managing Liyue's funerary affairs. She does her utmost to flawlessly carry out a person's last rites and preserve the world's balance of yin and yang. Aside from this, she is also a talented poet whose many" + '"masterpieces" have passed around' + "Liyue's populace by word of mouth.", [{'username' : 'Zhongli', 'comment' : 'Hello there.'}]),
+  model('Barbatos', 'assets/images/Venti_Pro.jpg', 'assets/images/Venti.jpg', "    A bard that seems to have arrived on some unknown wind — sometimes sings songs as old as the hills, and other times sings poems fresh and new. Likes apples and lively places but is not a fan of cheese or anything sticky. When using his Anemo power to control the wind, it often appears as feathers, as he's fond of that which appears light and breezy.", [{'username' : 'baal', 'comment' : 'Come fight me.'}, {'username' : 'Morax', 'comment' : 'You idiot.'}]),
+  model('Morax', 'assets/images/Zhongli_Pro.jpg', 'assets/images/Zhongli.png', "    Wangsheng Funeral Parlor's mysterious consultant. Handsome, elegant, and surpassingly learned.Though no one knows where Zhongli is from, he is a master of courtesy and rules. From his seat at Wangsheng Funeral Parlor, he performs all manner of rituals.", [{'username' : 'Barbatos', 'comment' : 'Ehe.'}, {'username' : 'Baal', 'comment': 'Long time no see.'}]),
+  model('Baal', 'assets/images/Raiden_Pro.jpg', 'assets/images/Raiden.png', '   The Raiden Shogun is the awesome and terrible power of thunder incarnate, the exalted ruler of the Inazuma Shogunate. With the might of lightning at her disposal, she commits herself to the solitary pursuit of eternity.', [{'username' : 'Barbatos', 'comment' : 'Ehe.'}, {'username' : 'Morax', 'comment': "It's been a while."}] ),
+];
 
-  final List<model> _postInfo = [
-    model('Hu Tao', 'assets/images/Hutao_Pro.jpg', 'assets/images/HuTao.jpg', "   Hu Tao is the 77th Director of the Wangsheng Funeral Parlor, a person vital to managing Liyue's funerary affairs. She does her utmost to flawlessly carry out a person's last rites and preserve the world's balance of yin and yang. Aside from this, she is also a talented poet whose many" + '"masterpieces" have passed around' + "Liyue's populace by word of mouth.", ['Zhongli'], ['Hello there.']),
-    model('Barbatos', 'assets/images/Venti_Pro.jpg', 'assets/images/Venti.jpg', "    A bard that seems to have arrived on some unknown wind — sometimes sings songs as old as the hills, and other times sings poems fresh and new. Likes apples and lively places but is not a fan of cheese or anything sticky. When using his Anemo power to control the wind, it often appears as feathers, as he's fond of that which appears light and breezy.", ['Baal', 'Morax'], ['Come fight me.', 'You idiot.']),
-    model('Morax', 'assets/images/Zhongli_Pro.jpg', 'assets/images/Zhongli.png', "    Wangsheng Funeral Parlor's mysterious consultant. Handsome, elegant, and surpassingly learned.Though no one knows where Zhongli is from, he is a master of courtesy and rules. From his seat at Wangsheng Funeral Parlor, he performs all manner of rituals.", ['Barbatos','Baal'], ['Ehe.', 'Long  time no see.']),
-    model('Baal', 'assets/images/Raiden_Pro.jpg', 'assets/images/Raiden.png', '   The Raiden Shogun is the awesome and terrible power of thunder incarnate, the exalted ruler of the Inazuma Shogunate. With the might of lightning at her disposal, she commits herself to the solitary pursuit of eternity.', ['Barbatos', 'Morax'], ['Ehe.', "It's been a while."]),
-  ];
+class _customWidgetState extends State<customWidget> {
 
   String _userName = "Xawel's";
 
@@ -91,7 +91,12 @@ class _customWidgetState extends State<customWidget> {
             ),
           ),
 
-          Image.asset(post.getPostImage()),
+          GestureDetector(
+            onDoubleTap: () => setState(() {
+              post.pressLike();
+            }),
+              child: Image.asset(post.getPostImage()),
+          ),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Row(
@@ -121,15 +126,17 @@ class _customWidgetState extends State<customWidget> {
     return ListView.builder(
       shrinkWrap: true,
       //physics: ClampingScrollPhysics(),
-      itemCount: post.getCommentUserLength(),
+      itemCount: post.getCommentLength(),
       itemBuilder: (BuildContext context, int index) {
         return Padding(
           padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-          child: Row(
-            children: [
-              Text("${post.getCommentUserName(i: index)} : " ,style: TextStyle(fontSize: 20.0, color: Colors.blue),),
-              Flexible(child: Text('${post.getCommentMessage(i: index)}', style: TextStyle(fontSize: 20.0),)),
-            ],
+          child: Expanded(
+            child: Row(
+              children: [
+                Text("${post.getCommentUser(i: index)} : " ,style: TextStyle(fontSize: 20.0, color: Colors.blue),),
+                Flexible(child: Text('${post.getComment(i: index)}', style: TextStyle(fontSize: 20.0),)),
+              ],
+            ),
           ),
         );
       },
@@ -154,6 +161,7 @@ class _customWidgetState extends State<customWidget> {
   }
 
   Widget buildCommentField({int? index}) {
+
     var post = _postInfo[index!];
     var controller = post.getController();
 
@@ -167,8 +175,7 @@ class _customWidgetState extends State<customWidget> {
             controller: controller,
             onSubmitted: (String comment) {
               setState(() {
-                post.addCommentUserName(userName: _userName);
-                post.addComment(comment: comment);
+                post.addComment(userName: _userName, comment: comment);
                 controller.clear();
               });
             },

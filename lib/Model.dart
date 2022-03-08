@@ -6,18 +6,16 @@ class model {
   var _postImage;
   var _postMessage;
   bool _liked = false;
-  List<String> _commentUserName = [];
-  List<String> _comment = [];
+  List<Map<String, String>> _comment = [];
 
   TextEditingController _controller  = TextEditingController();
 
 
-  model(var user, var userImage, var postImage, var postMessage, List<String> commentUserName, List<String> comment) {
+  model(var user, var userImage, var postImage, var postMessage, List<Map<String, String>> comment) {
     this._user = user;
     this._userImage = userImage;
     this._postImage = postImage;
     this._postMessage = postMessage;
-    this._commentUserName = commentUserName;
     this._comment = comment;
   }
 
@@ -49,23 +47,19 @@ class model {
     return _controller;
   }
 
-  getCommentUserName({int? i}) {
-    return _commentUserName[i!].characters;
+  getCommentUser({int? i}) {
+    return _comment[i!]['username'];
   }
 
-  addCommentUserName({String? userName}) {
-    _commentUserName.add(userName!);
+  getComment({int? i}) {
+    return _comment[i!]['comment'];
   }
 
-  getCommentMessage({int? i}) {
-    return _comment[i!].characters;
+  addComment({String? comment, String? userName}) {
+    _comment.add({'username': userName!, 'comment': comment!});
   }
 
-  addComment({String? comment}) {
-    _comment.add(comment!);
-  }
-
-  getCommentUserLength() {
-    return _commentUserName.length;
+  getCommentLength() {
+    return _comment.length;
   }
 }
